@@ -1,12 +1,16 @@
 var path = require('path')
 var webpack = require('webpack')
+const VueSSRPlugin = require('vue-ssr-webpack-plugin')
+
 
 module.exports = {
-  entry: './src/main.js',
+  target: 'node',
+  entry: './src/main.server.js',
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: 'build.js'
+    filename: 'build.js',
+    libraryTarget: 'commonjs2'
   },
   module: {
     rules: [
@@ -38,14 +42,28 @@ module.exports = {
       'vue$': 'vue/dist/vue.esm.js'
     }
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true
-  },
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  externals: Object.keys(require('./package.json').dependencies),
+  devtool: '#eval-source-map',
+  plugins: [
+    new VueSSRPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
+      }
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true
+    })
+  ]
 }
 
 if (process.env.NODE_ENV === 'production') {
