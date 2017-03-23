@@ -1,7 +1,8 @@
 # vue-ssr
 
-> vue serverside playground
-[source](https://alligator.io/vuejs/basic-ssr/)
+> vue with serverside rendering playground
+
+[Original article source](https://alligator.io/vuejs/basic-ssr/)
 
 ## Build Setup
 
