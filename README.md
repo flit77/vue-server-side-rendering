@@ -2,7 +2,7 @@
 
 > vue with serverside rendering playground
 
-[Original article source](https://alligator.io/vuejs/basic-ssr/)
+[Original article](https://alligator.io/vuejs/basic-ssr/)
 
 ## Build Setup
 
